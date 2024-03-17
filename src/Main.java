@@ -3,7 +3,13 @@ import com.ayman.game.GuessGame;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Class of the entrypoint of Hangman Game.
+ */
 public class Main {
+    /**
+     * Entry point of Hangman Game. Contains the main algorithm of the game.
+     */
     public static void main(String[] args) {
         final var random = new Random();
         final var words = "abuser crottes fleches continental babiole etoile bougie coup coeur malade".split(" ");
