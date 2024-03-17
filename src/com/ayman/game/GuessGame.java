@@ -1,12 +1,15 @@
 package com.ayman.game;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GuessGame {
     private final List<Character> secretWord = new ArrayList<>();
     private int lifePoints;
     private final List<Character> guessedLetters = new ArrayList<>();
+    private final Set<Character> enteredLetters = new HashSet<>();
 
     public GuessGame(String secretWord, int lifePoints) {
         for(char c : secretWord.toCharArray()){
@@ -23,10 +26,12 @@ public class GuessGame {
         return "GuessGame{" +
                 "lifePoints=" + lifePoints +
                 ", guessedLetters=" + guessedLetters +
+                ", enteredLetters=" + enteredLetters +
                 '}';
     }
 
     public void guessLetter(char letter) {
+        enteredLetters.add(letter);
         if(secretWord.contains(letter) && !guessedLetters.contains(letter)){
             var i = 0;
             for(char c : secretWord){

@@ -3,36 +3,54 @@ import com.ayman.game.GuessGame;
 import java.util.Random;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        final var scanner = new Scanner(System.in);
         final var random = new Random();
         final var words = "abuser crottes fleches continental babiole etoile bougie coup coeur malade".split(" ");
-        final var wordToGuess = words[random.nextInt(words.length)];
-        final var game = new GuessGame(wordToGuess, 10);
+        final var lifePoints = 10;
+        var wordToGuess = words[random.nextInt(words.length)];
+        var game = new GuessGame(wordToGuess, 10);
 
         System.out.println("Début du jeu.");
 
         while (true){
             System.out.println(game);
-            System.out.println("Entrez une lettre");
-            final var letter = scanner.nextLine().charAt(0);
+            final var letter = getLetter("Entrez une seule lettre");
 
             game.guessLetter(letter);
 
             if(game.isLost()){
-                System.out.println(game);
                 System.out.println("Perdu !");
-                break;
             }
 
             if(game.isWon()){
-                System.out.println(game);
                 System.out.println("Gagné !");
-                break;
+            }
+
+            if(game.isLost() || game.isWon()){
+                System.out.println(game);
+                final var replayAnswer = getLetter("Rejouer ? ('o' pour confirmer)");
+                if(replayAnswer == 'o'){
+                    wordToGuess = words[random.nextInt(words.length)];
+                    game = new GuessGame(wordToGuess, lifePoints);
+                }
+                else{
+                    break;
+                }
             }
         }
+    }
+
+    private static char getLetter(String request) {
+        final var scanner = new Scanner(System.in);
+        Character letter = null;
+        do{
+            System.out.println(request);
+            var input = scanner.nextLine();
+            if(input.length() == 1){
+                letter = input.charAt(0);
+            }
+        } while (letter == null);
+        return letter;
     }
 }
